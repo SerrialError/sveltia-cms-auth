@@ -1,3 +1,5 @@
+import { handleFeedback } from './feedback.js';
+
 /**
  * List of supported OAuth providers.
  */
@@ -411,6 +413,10 @@ export default {
 
     if (method === 'GET' && ['/callback', '/oauth/redirect'].includes(pathname)) {
       return handleCallback(request, env);
+    }
+
+    if (['POST', 'OPTIONS'].includes(method) && pathname === '/feedback') {
+      return handleFeedback(request, env, getDomainPatterns(env.ALLOWED_DOMAINS));
     }
 
     return new Response('', { status: 404 });
