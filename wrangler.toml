@@ -16,3 +16,16 @@ FEEDBACK_REPO = "SerrialError/connorscurriculum"
 name = "FEEDBACK_RATE_LIMITER"
 namespace_id = "1001"
 simple = { limit = 5, period = 60 }
+
+# Preview builds of branches run `wrangler preview`, which needs its own copy of the settings.
+# Same public values as production; the rate limiter gets its own namespace. Preview secrets are
+# separate (`wrangler preview secret`), so a preview can't file issues unless given a token.
+[previews.vars]
+ALLOWED_DOMAINS = "connorscurriculum.com, serrialerror.github.io, localhost"
+GITHUB_CLIENT_ID = "Ov23linSJ7FHhlplIGJ9"
+FEEDBACK_REPO = "SerrialError/connorscurriculum"
+
+[[previews.ratelimits]]
+name = "FEEDBACK_RATE_LIMITER"
+namespace_id = "1002"
+simple = { limit = 5, period = 60 }
